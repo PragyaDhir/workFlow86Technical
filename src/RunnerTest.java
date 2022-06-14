@@ -32,9 +32,35 @@ class RunnerTest {
 
         Scanner scanner = new Scanner(System.in);
         Runner.main(null);
+
+        List<String> expectedList = new ArrayList<>();
+        expectedList.add("H");
+        expectedList.add("I");
+        assertEquals(expectedList, Runner.getDependencies("G"));
+
+        expectedList = new ArrayList<>();
+        expectedList.add("E");
+        expectedList.add("F");
+        expectedList.add("H");
+        expectedList.add("I");
+        expectedList.add("G");
+
+        assertEquals(expectedList, Runner.getDependencies("C"));
+
+        expectedList = new ArrayList<>();
+        expectedList.add("B");
+        expectedList.add("E");
+        expectedList.add("F");
+        expectedList.add("H");
+        expectedList.add("I");
+        expectedList.add("G");
+        expectedList.add("C");
+        expectedList.add("D");
+
+        assertEquals(expectedList, Runner.getDependencies("A"));
     }
     @Test
-    void mainTest2() {
+    void mainTest2() throws Exception {
         String data = "A" +
                 "\nB C D"
                 +"\nY"
@@ -57,6 +83,35 @@ class RunnerTest {
 
         Scanner scanner = new Scanner(System.in);
         Runner.main(null);
+
+        List<String> expectedList = new ArrayList<>();
+        expectedList.add("H");
+        expectedList.add("D");
+        expectedList.add("I");
+        assertEquals(expectedList, Runner.getDependencies("G"));
+
+        expectedList = new ArrayList<>();
+        expectedList.add("E");
+        expectedList.add("F");
+        expectedList.add("H");
+        expectedList.add("D");
+        expectedList.add("I");
+        expectedList.add("G");
+
+        assertEquals(expectedList, Runner.getDependencies("C"));
+
+        expectedList = new ArrayList<>();
+        expectedList.add("B");
+        expectedList.add("E");
+        expectedList.add("F");
+        expectedList.add("H");
+        expectedList.add("D");
+        expectedList.add("I");
+        expectedList.add("G");
+        expectedList.add("C");
+        expectedList.add("D");
+
+        assertEquals(expectedList, Runner.getDependencies("A"));
     }
     @Test
     void mainTest3() {
@@ -82,5 +137,10 @@ class RunnerTest {
 
         Scanner scanner = new Scanner(System.in);
         Runner.main(null);
+
+        assertThrowsExactly(Exception.class ,() -> Runner.getDependencies("G"));
+        assertThrowsExactly(Exception.class ,() -> Runner.getDependencies("C"));
+        assertThrowsExactly(Exception.class ,() -> Runner.getDependencies("A"));
+
     }
 }
