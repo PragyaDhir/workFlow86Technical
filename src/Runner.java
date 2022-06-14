@@ -9,9 +9,7 @@ public class Runner {
         moduleList = new ArrayList<>(); // Instantiating for each program run
 
         //input
-        input(inputScanner);
-        System.out.println("Do you want to input more modules? Y or N ");
-        String choice = inputScanner.nextLine();
+        String choice = "Y";
         while (choice.equals("Y") || choice.equals("y")) {
             input(inputScanner);
             System.out.println("Do you want to input more modules? Y or N ");
@@ -28,7 +26,7 @@ public class Runner {
             System.out.println("Please choose the module whose dependencies you want to print");
             String moduleForGettingDependencies = inputScanner.nextLine();
             try {
-                System.out.println("Dependencies for module : " + moduleForGettingDependencies + " are: " + getDependencies(moduleForGettingDependencies));
+                System.out.println("Dependencies for module : " + moduleForGettingDependencies.toUpperCase() + " are: " + getDependencies(moduleForGettingDependencies.toUpperCase()));
             } catch (Exception e) {
                 System.out.println("Error : " + e.getMessage());
             }
@@ -86,12 +84,16 @@ public class Runner {
     private static void input(Scanner inputScanner) {
         System.out.println("Module Name : ");
         String moduleName = inputScanner.nextLine();
-        System.out.println("Module Dependencies : ");
+        System.out.println("Module Dependencies (Please use space between different module dependencies): ");
         String moduleDependencies = inputScanner.nextLine();
         String[] arrayOfModuleDependencies = moduleDependencies.split(" ");
         Module moduleToAdd = new Module();
-        moduleToAdd.setName(moduleName);
-        HashSet<String> hashSet = new HashSet<>(Arrays.asList(arrayOfModuleDependencies));
+        moduleToAdd.setName(moduleName.toUpperCase());
+        HashSet<String> hashSet = new HashSet<>();
+        for(String dep : arrayOfModuleDependencies)
+        {
+            hashSet.add(dep.toUpperCase());
+        }
         moduleToAdd.setDependencies(hashSet);
         moduleList.add(moduleToAdd);
 
